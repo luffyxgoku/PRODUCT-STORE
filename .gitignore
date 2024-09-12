@@ -7,13 +7,13 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Root-level dependency directories and environment files
+node_modules/
+.env
 
-.env 
-
+# Frontend-specific ignores
+Frontend/dist/
+Frontend/node_modules/
 
 # Editor directories and files
 .vscode/*
