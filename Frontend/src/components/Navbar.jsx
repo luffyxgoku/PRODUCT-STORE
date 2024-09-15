@@ -12,7 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { PlusSquareIcon } from "@chakra-ui/icons";
 import { IoMoon } from "react-icons/io5";
 import { LuSun } from "react-icons/lu";
-import { useUserStore } from "../store/user";
+import { useUserStore } from "../store/User";
 
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
