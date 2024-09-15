@@ -10,7 +10,7 @@ import productRoutes from "./routes/Product.js";
 import userRoutes from "./routes/User.js";
 
 const app = express();
-const PORT = process.env.PORT || 786;
+const PORT = process.env.PORT || 9940;
 
 const __dirname = path.resolve();
 
@@ -41,3 +41,6 @@ app.listen(PORT, () => {
   connectDB();
   console.log(`Server started at http://localhost:${PORT}`);
 });
+
+// new pass for new project in mongodb named ProductStore - YfS6ldPorXsFL4Iz
+// connection string for ProductStore project - mongodb+srv://kinghunz12:<db_password>@cluster0.h0bzb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
