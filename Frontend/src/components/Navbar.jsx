@@ -6,14 +6,40 @@ import {
   HStack,
   Text,
   useColorMode,
+  useToast,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PlusSquareIcon } from "@chakra-ui/icons";
 import { IoMoon } from "react-icons/io5";
 import { LuSun } from "react-icons/lu";
+import { useUserStore } from "../store/user";
 
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
+  const { user, signout } = useUserStore();
+  const navigate = useNavigate();
+  const toast = useToast();
+
+  const handleSignout = async () => {
+    const { success, message } = await signout();
+    if (success) {
+      navigate("/signin");
+    }
+    toast({
+      title: success ? "Signed out" : "Error",
+      description: message,
+      status: success ? "success" : "error",
+      duration: 3000,
+      isClosable: true,
+    });
+  };
+
+  // Extract the first name from the fullName
+  const getFirstName = (fullName) => {
+    if (!fullName) return "";
+    const nameParts = fullName.split(" ");
+    return nameParts[0];
+  };
 
   return (
     <Container maxW={"1140px"} px={4}>
@@ -44,6 +70,24 @@ const Navbar = () => {
           <Button onClick={toggleColorMode}>
             {colorMode === "light" ? <IoMoon /> : <LuSun size="20" />}
           </Button>
+
+          {!user ? (
+            <>
+              <Link to={"/register"}>
+                <Button colorScheme="blue">Register</Button>
+              </Link>
+              <Link to={"/signin"}>
+                <Button colorScheme="blue">Signin</Button>
+              </Link>
+            </>
+          ) : (
+            <HStack spacing={4}>
+              <Text fontSize="lg">Welcome, {getFirstName(user.fullName)}!</Text>
+              <Button colorScheme="blue" onClick={handleSignout}>
+                Signout
+              </Button>
+            </HStack>
+          )}
         </HStack>
       </Flex>
     </Container>

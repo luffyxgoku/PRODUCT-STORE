@@ -9,6 +9,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useProductStore } from "../store/Product";
 
 const CreatePage = () => {
@@ -20,6 +21,7 @@ const CreatePage = () => {
 
   const toast = useToast();
   const { createProduct } = useProductStore();
+  const navigate = useNavigate();
 
   const handleAddProduct = async () => {
     const { success, message } = await createProduct(newProduct);
@@ -37,8 +39,9 @@ const CreatePage = () => {
         status: "success",
         isClosable: true,
       });
+      setNewProduct({ name: "", price: "", image: "" });
+      navigate("/"); // Redirect to homepage
     }
-    setNewProduct({ name: "", price: "", image: "" });
   };
 
   return (
@@ -63,7 +66,6 @@ const CreatePage = () => {
                 setNewProduct({ ...newProduct, name: e.target.value })
               }
             />
-
             <Input
               placeholder="Price"
               name="price"
@@ -73,7 +75,6 @@ const CreatePage = () => {
                 setNewProduct({ ...newProduct, price: e.target.value })
               }
             />
-
             <Input
               placeholder="Image URL"
               name="image"

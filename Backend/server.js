@@ -1,20 +1,33 @@
 import express from "express";
 import dotenv from "dotenv";
 import path from "path";
-
+import session from "express-session"; // Add express-session
 import { connectDB } from "./config/db.js";
 
-import productRoutes from "./routes/Product.js";
-
 dotenv.config();
+
+import productRoutes from "./routes/Product.js";
+import userRoutes from "./routes/User.js";
 
 const app = express();
 const PORT = process.env.PORT || 786;
 
 const __dirname = path.resolve();
 
+// Setup session management
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "secret", // Store your secret in .env
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false, maxAge: 60000 * 60 }, // Set secure to true if using HTTPS
+  })
+);
+
 app.use(express.json());
 
+// Routes
+app.use("/api/user", userRoutes);
 app.use("/api/products", productRoutes);
 
 if (process.env.NODE_ENV === "production") {
@@ -26,5 +39,5 @@ if (process.env.NODE_ENV === "production") {
 
 app.listen(PORT, () => {
   connectDB();
-  console.log(`Server started at http://localhost:${[PORT]}`);
+  console.log(`Server started at http://localhost:${PORT}`);
 });

@@ -22,6 +22,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useProductStore } from "../store/Product";
+import { useUserStore } from "../store/User"; // Import user store
 
 const ProductCard = ({ product }) => {
   const [updatedProduct, setUpdatedProduct] = useState(product);
@@ -29,6 +30,7 @@ const ProductCard = ({ product }) => {
   const bg = useColorModeValue("white", "gray.800");
 
   const { deleteProduct, updateProduct } = useProductStore();
+  const { user } = useUserStore();
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -102,12 +104,20 @@ const ProductCard = ({ product }) => {
         </Text>
 
         <HStack spacing={2}>
-          <IconButton icon={<EditIcon />} onClick={onOpen} colorScheme="blue" />
-          <IconButton
-            icon={<DeleteIcon />}
-            onClick={() => handleDeleteProduct(product._id)}
-            colorScheme="red"
-          />
+          {user && ( // Check if user is logged in
+            <>
+              <IconButton
+                icon={<EditIcon />}
+                onClick={onOpen}
+                colorScheme="blue"
+              />
+              <IconButton
+                icon={<DeleteIcon />}
+                onClick={() => handleDeleteProduct(product._id)}
+                colorScheme="red"
+              />
+            </>
+          )}
         </HStack>
       </Box>
 
@@ -174,4 +184,5 @@ const ProductCard = ({ product }) => {
     </Box>
   );
 };
+
 export default ProductCard;
