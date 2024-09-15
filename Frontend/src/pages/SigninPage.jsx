@@ -8,7 +8,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { useUserStore } from "../store/user";
+import { useUserStore } from "../store/User";
 import { useNavigate } from "react-router-dom";
 
 const SigninPage = () => {

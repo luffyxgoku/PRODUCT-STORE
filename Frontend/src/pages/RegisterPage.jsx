@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUserStore } from "../store/user";
+import { useUserStore } from "../store/User";
 
 const RegisterPage = () => {
   const [registerData, setRegisterData] = useState({

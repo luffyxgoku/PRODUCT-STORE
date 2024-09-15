@@ -1,6 +1,6 @@
 import { Button, Container, Heading, VStack, useToast } from "@chakra-ui/react";
 import React from "react";
-import { useUserStore } from "../store/user";
+import { useUserStore } from "../store/User";
 
 const SignoutPage = () => {
   const toast = useToast();
